@@ -1,4 +1,5 @@
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 enum AlignEnum {
     "left",
@@ -17,7 +18,7 @@ export interface Props{
 
 const TextField:React.FC<Props> = ({ label, id, onChange, align='left', value, tails }) => {
     return <div className={`color-black relative`}>
-        <input value={value} onSubmit={() => console.log('a')} onChange={onChange} id={id} placeholder={label} className={`peer/input md:text-base text-sm w-full text-${align} border-solid border border-slate-400 rounded-md p-2 outline-[0.5px] outline-inherit ${tails}`} type="text" />
+        <input value={value} onSubmit={() => console.log('a')} onChange={onChange} id={id} placeholder={label} className={twMerge(`peer/input md:text-base text-sm w-full text-${align} border-solid border border-slate-400 rounded-md p-2 outline-[0.5px] outline-inherit`, tails)} type="text" />
     </div>
 }
 

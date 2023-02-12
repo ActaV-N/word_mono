@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { IconType } from 'react-icons';
 import {MdExpandMore} from 'react-icons/md';
+import { twMerge } from 'tailwind-merge';
 
 const AccordianContext = createContext(() => {});
 
@@ -98,7 +99,7 @@ interface DetailProps{
 
 (Accordian as typeof Accordian & {Detail:React.FC<DetailProps>})
 .Detail = ({children, tails}) => {
-    return <div className={`accordian-content px-3 h-0 bg-slate-200 overflow-hidden ${tails}`}>
+    return <div className={twMerge(`accordian-content px-3 h-0 bg-slate-200 overflow-hidden`, tails)}>
         <div className='py-3'>
             {children}
         </div>

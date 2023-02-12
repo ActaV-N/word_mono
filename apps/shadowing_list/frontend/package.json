@@ -23,6 +23,7 @@
     "recoil": "^0.7.6",
     "storybook-addon-next-router": "^4.0.2",
     "swr": "^2.0.3",
+    "tailwind-merge": "^1.9.1",
     "ts-loader": "^9.4.2"
   },
   "devDependencies": {

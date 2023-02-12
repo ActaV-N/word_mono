@@ -10081,6 +10081,7 @@ __metadata:
     recoil: ^0.7.6
     storybook-addon-next-router: ^4.0.2
     swr: ^2.0.3
+    tailwind-merge: ^1.9.1
     tailwindcss: ^3.2.4
     ts-loader: ^9.4.2
     typescript: 4.9.5
@@ -17662,6 +17663,13 @@ __metadata:
     "@pkgr/utils": ^2.3.1
     tslib: ^2.5.0
   checksum: 8a9560e5d8f3d94dc3cf5f7b9c83490ffa30d320093560a37b88f59483040771fd1750e76b9939abfbb1b5a23fd6dfbae77f6b338abffe7cae7329cd9b9bb86b
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^1.9.1":
+  version: 1.9.1
+  resolution: "tailwind-merge@npm:1.9.1"
+  checksum: 351d740d17c8d503d554adff6e53539761af10742bcdf032d2e40032c7be5b36a866df4d87f7ba5fd1d6e8ae01d55b89cf70e491b2f093c49f8a56380c45fa45
   languageName: node
   linkType: hard
 
