@@ -8,7 +8,7 @@ jobs:
     vercel:
         runs-on: ubuntu-latest
         steps:
-            - uses: action/checkout@v2
+            - uses: actions/checkout@v2
             - name: settings for vercel project
               uses: dkershner6/vercel-set-env-action@v1
               with:
