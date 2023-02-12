@@ -8,7 +8,7 @@ jobs:
     vercel:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v2
             - name: deploy to vercel
               uses: amondnet/vercel-action@v20
               with:
