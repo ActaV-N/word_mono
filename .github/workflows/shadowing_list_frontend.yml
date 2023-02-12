@@ -7,11 +7,10 @@ on:
 jobs:
     vercel:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./apps/shadowing_list/frontend
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
+              with:
+                  path: apps/shadowing_list/frontend
             - name: deploy to vercel
               uses: amondnet/vercel-action@v20
               with:
