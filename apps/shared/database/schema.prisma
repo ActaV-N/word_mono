@@ -1,0 +1,31 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Sentence {
+    id                  Int                  @id @default(autoincrement())
+    content             String
+    movieName           String
+    mean                String
+    SentenceExpressions SentenceExpression[]
+}
+
+model Expression {
+    id                  Int                  @id @default(autoincrement())
+    content             String
+    mean                String
+    SentenceExpressions SentenceExpression[]
+}
+
+model SentenceExpression {
+    id           Int        @id @default(autoincrement())
+    sentence     Sentence   @relation(fields: [sentenceId], references: [id])
+    sentenceId   Int
+    expression   Expression @relation(fields: [expressionId], references: [id])
+    expressionId Int
+}
