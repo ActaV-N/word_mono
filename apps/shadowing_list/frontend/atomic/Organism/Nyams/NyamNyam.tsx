@@ -5,6 +5,7 @@ import {FaExchangeAlt} from 'react-icons/fa'
 import ButtonWithIcon from '../../Atom/Button/ButtonWithIcon';
 import { TodayNyamT, TODAY_NYAM } from '../../../mocks/data';
 import NyamAccordian from '../../Mole/Nyams/NyamAccordian';
+import Modal from '../../Atom/Utils/Modal';
 /**
  * TODO: Create Accordiand and Accordian Group with expressions
  * TODO: If accordian expanded, there will be some informations about expression.

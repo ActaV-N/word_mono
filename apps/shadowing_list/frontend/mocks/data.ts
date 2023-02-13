@@ -93,6 +93,17 @@ export const TODAY_NYAM: TodayNyamT[] = [
         langType: "en",
         media: "영화 Catch me if you can"
     },
+    {
+        id:4,
+        expression:"Custudy",
+        meaning:"",
+        created_at:new Date("2022-01-04"),
+        useCases:[],
+        gonnaNyam: false,
+        success: false,
+        langType: "en",
+        media: "영화 Catch me if you can"
+    },
     // {
     //     id:4,
     //     expression:"",

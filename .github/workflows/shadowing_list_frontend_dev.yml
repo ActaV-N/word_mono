@@ -2,7 +2,7 @@ name: Zoop Zoop Frontend CI/CD
 on:
     push:
         branches:
-            - main
+            - develop
 
 jobs:
     vercel:

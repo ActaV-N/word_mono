@@ -65,7 +65,7 @@ module.exports = {
                 "slate-900": "#343A40",
             },
             transitionProperty: {
-                button: "opacity, box-shadow, color, background-color",
+                button: "opacity, box-shadow, color, background-color, border-color",
             },
         },
     },

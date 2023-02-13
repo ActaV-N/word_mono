@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TodayNyamT } from '../../../mocks/data';
+import Modal from '../../Atom/Utils/Modal';
 import { ShowEnum } from '../../Organism/Nyams/NyamNyam';
+import NyamNyamDetail from './NyamNyamDetail';
 import NyamZoopDetail from './NyamZoopDetail';
 
 interface Props{
@@ -9,9 +11,7 @@ interface Props{
 }
 
 const NyamDetail:React.FC<Props> = ({nyam, showState}) => {
-    const handleZoopMove = () => {
-        console.log("Hid")
-    }
+    const [filled, setFilled] = useState<boolean>(nyam.meaning && nyam.langType ? true:false);
 
     return <div className='text-sm'>
         <div className='text-xs text-slate-600 text-right'>
@@ -49,7 +49,9 @@ const NyamDetail:React.FC<Props> = ({nyam, showState}) => {
         <div className='text-slate-800 text-xs mt-1'>
             표현 습득 출처: {nyam.media}
         </div>
-        {showState === "zoop" && <NyamZoopDetail onClick={handleZoopMove}/>}
+        
+        {showState === "zoop" && <NyamZoopDetail filled={filled} nyam={nyam} />}
+        {showState === "nyam" && <NyamNyamDetail nyam={nyam} />}
     </div>
 }
 
