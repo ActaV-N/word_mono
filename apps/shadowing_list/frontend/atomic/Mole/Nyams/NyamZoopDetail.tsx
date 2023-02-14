@@ -15,11 +15,13 @@ interface Props{
 }
 
 const NyamZoopDetail: React.FC<Props> = ({nyam, filled}) => {
-    const [nyamInputs, setNyamInputs] = useState({
+    const initialState = {
         meaning: nyam.meaning,
         langType: nyam.langType,
         media:nyam.media,
-    })
+    }
+
+    const [nyamInputs, setNyamInputs] = useState(initialState)
     const [isFillModalOpen, setIsFillModalOpen] = useState(false);
 
     const handleFillModalOpen = () => {
@@ -28,6 +30,7 @@ const NyamZoopDetail: React.FC<Props> = ({nyam, filled}) => {
 
     const onFillModalClose = () => {
         setIsFillModalOpen(false);
+        setNyamInputs(initialState);
     }
 
     const handleMove = () => {
@@ -76,7 +79,7 @@ const NyamZoopDetail: React.FC<Props> = ({nyam, filled}) => {
                 </div>
                 <div className='flex '>
                     <div className='flex-1 pr-2'>
-                        <Select value={nyamInputs.langType} label={nyamInputs.langType ? LangEnum[nyamInputs.langType] : "냠냠 타입을 선택해주세요"} onChange={handleSelectChange} name="langType" >
+                        <Select defaultLabel={"냠냠 타입을 선택해주세요"} value={nyamInputs.langType} label={nyamInputs.langType && LangEnum[nyamInputs.langType]} onChange={handleSelectChange} name="langType" >
                             {Object.entries(LangEnum).map(([v, l], i) => 
                             <Select.Item key={i} value={v} label={l} />)}
                         </Select>

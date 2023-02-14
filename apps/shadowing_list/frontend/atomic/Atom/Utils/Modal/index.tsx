@@ -54,6 +54,7 @@ const Modal: React.FC<Props> = ({children, isOpen = false, onClose}) => {
                         onComplete: () => {
                             setIsAnimating(false);
                             setIsClosed(true);
+                            onClose && onClose();
                         }
                     });
     
@@ -80,8 +81,6 @@ const Modal: React.FC<Props> = ({children, isOpen = false, onClose}) => {
 
     const handleClose = () => {
         setIsModalOpen(false);
-
-        onClose && onClose();
     }
 
     if(isClosed && !isAnimating) return null;

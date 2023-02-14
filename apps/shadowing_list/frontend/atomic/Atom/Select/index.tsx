@@ -2,26 +2,44 @@ import gsap from 'gsap';
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { MdExpandMore } from 'react-icons/md';
 
+// Context
 const SelectContext = createContext<Function>(() => {})
 
+// Select change handler type for parent component
 export type SelectChangeHandler = ({value, name}:{value:string|number, name:string}) => void;
 
+// Actual option component(but named it as Item)
+const Item: React.FC<ItemProps> = ({value='', label}) => {
+    // Context for selecting option
+    const handleSelect = useContext(SelectContext);
+
+    const handleClick = () => {
+        handleSelect({value, label});
+    }
+
+    return <div onClick={handleClick} className="p-2 cursor-pointer transition-button hover:bg-slate-300">
+        {label}
+    </div>
+}
+
 interface Props{
-    label?:string
-    children: React.ReactNode
+    label?:string,
+    defaultLabel?: string,
+    children: React.ReactNode,
     onChange: SelectChangeHandler,
     value?: string | number,
     name?: string
 }
 
 const Select: React.FC<Props> = ({
-    label="선택",
+    defaultLabel="선택",
+    label="",
     children,
     onChange,
     value='',
     name=""
 }) => {
-    const [defaultLabel, _] = useState(label);
+    // State for select and option
     const [selectInfo, setSelectInfo] = useState<{
         label:string,
         value?:string | number
@@ -30,10 +48,15 @@ const Select: React.FC<Props> = ({
         value: value
     });
 
+    // Dropdown open state for select
     const [isOpen, setIsOpen] = useState(false);
+
+    // Container of select
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Animations
     useEffect(() => {
-        let ctx = gsap.context(() => {
+        gsap.context(() => {
             if(isOpen){
                 const tl = gsap.timeline();
 
@@ -70,24 +93,33 @@ const Select: React.FC<Props> = ({
         }, containerRef)
     }, [isOpen])
 
+    // Select functio, invoked when option selected
     const handleSelect:({}:{value: string | number, label: string}) => void = ({value, label}) => {
+        // Set selected option info
         setSelectInfo({
             value,
             label
         })
 
+        // change state for parent component
         onChange && onChange({
             value,
             name
         });
 
+        // Close select
         setIsOpen(false);
     }
     
+    // Toggle select dropdown
     const toggleOpen = () => {
         setIsOpen(!isOpen);
     }
 
+    /**
+     *  Enroll mousedown event at document for closing dropdown
+     *  when the part which is not in select is clicked 
+     * */ 
     useEffect(() => {
         const handleOutsideClick:(this: Document, ev: MouseEvent) => any = (event: MouseEvent) => {
             const container = containerRef.current as HTMLDivElement;
@@ -122,24 +154,10 @@ const Select: React.FC<Props> = ({
     </SelectContext.Provider>
 }
 
+// Define Select.Item Component
 interface ItemProps{
     value?: string | number,
     label: string
-}
-
-const Item: React.FC<ItemProps> = ({value='', label}) => {
-    const handleSelect = useContext(SelectContext);
-
-    const handleClick = () => {
-        handleSelect({value, label});
-    }
-
-    return <div
-    onClick={handleClick}
-    className="p-2 cursor-pointer transition-button hover:bg-slate-300"
-    >
-        {label}
-    </div>
 }
 
 (Select as typeof Select & {Item: React.FC<ItemProps>})

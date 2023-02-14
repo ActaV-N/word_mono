@@ -17,8 +17,8 @@ const NyamDetail:React.FC<Props> = ({nyam, showState}) => {
         <div className='text-xs text-slate-600 text-right'>
             {nyam.created_at.toLocaleString()}
         </div>
-        <div className='text-black font-bold'>
-            뜻: {nyam.meaning}
+        <div className={`text-black font-bold ${nyam.meaning || "font-normal italic"}`}>
+            뜻: {nyam.meaning || "아직 뜻을 입력하지 않았어요!"}
         </div>
         {nyam.useCases.length !== 0 && (
             <div className='px-3 my-7'>
