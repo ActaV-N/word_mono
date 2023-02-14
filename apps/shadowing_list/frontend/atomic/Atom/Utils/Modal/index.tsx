@@ -44,7 +44,7 @@ const Modal: React.FC<Props> = ({children, isOpen = false, onClose}) => {
                         autoAlpha: 1,
                         duration:0.5,
                         ease:'power2.inOut'
-                    }, 'start')
+                    }, 'start+=.1')
                 }, containerRef)
             } else{
                 ctx = gsap.context(() => {
@@ -89,7 +89,7 @@ const Modal: React.FC<Props> = ({children, isOpen = false, onClose}) => {
 
     return ReactDom.createPortal(<div ref={containerRef} className='fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center'>
         <div onClick={handleClose} className='absolute top-0 left-0 right-0 bottom-0 bg-black opacity-0 dim cursor-pointer'></div>
-        <div className='relative sm:w-9/12 w-10/12 max-w-3xl mx-auto'>
+        <div className='relative sm:w-9/12 w-10/12 max-w-2xl mx-auto'>
             <div className='bg-white rounded-sm max-h-[calc(100vh-12rem)] content opacity-0 invisible'>
                 {children}
             </div>

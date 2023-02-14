@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, MouseEvent, MouseEventHandler, useState } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, MouseEvent, MouseEventHandler, useRef, useState } from 'react';
 import { TodayDataT } from '../../../mocks/data';
 import Container from '../../Atom/Container';
 import PaperContainer from '../../Atom/Container/PaperContainer';
@@ -6,28 +6,34 @@ import ZoopInput from '../../Mole/Zoops/ZoopInput';
 import ZoopItem from '../../Mole/Zoops/ZoopItem';
 
 const ZoopZoop = () => {
+  const formRef = useRef<HTMLFormElement>(null)
   const [zoops, setZoops] = useState<TodayDataT[]>([])
-  const [zoopExpression, setZoopExpression] = useState('');
-  const [zoopMeaning, setZoopMeaning] = useState('');
+  const [zoopInputs, setZoopInputs] = useState({
+    expression: "",
+    meaning: ""
+  })
   const [isError, setIsError] = useState(false);
 
-  const handleZoopChange: ChangeEventHandler = (event: ChangeEvent) => {
-    const zoop = event.target as HTMLInputElement;
-    if(zoop.value.trim() !== "" && isError){
+  const handleZoopInputChange: ChangeEventHandler = (event: ChangeEvent) => {
+    const el = event.target as HTMLInputElement;
+    
+    const name = el.name;
+    const value = el.value;
+
+    if(name === "expression" && value.trim() !== "" && isError){
       setIsError(false);
     }
-    setZoopExpression(zoop.value);
-  }
-  
-  const handleZoopMeaningChange: ChangeEventHandler = (event: ChangeEvent) => {
-    const zoop = event.target as HTMLInputElement;
-    setZoopMeaning(zoop.value);
+
+    setZoopInputs(zoop => ({
+      ...zoop,
+      [name]:value
+    }))
   }
 
   const handleSubmit:FormEventHandler = (event:FormEvent) => {
     event.preventDefault();
 
-    if(zoopExpression.trim() === "") {
+    if(zoopInputs.expression.trim() === "") {
       setIsError(true);
       return;
     }
@@ -35,14 +41,19 @@ const ZoopZoop = () => {
     // Add new data for zoop
     const newData:TodayDataT = {
       id: zoops.length,
-      expression: zoopExpression,
-      meaning: zoopMeaning,
+      ...zoopInputs,
       created_at: new Date(Date.now())
     }
 
-    setZoopExpression('')
-    setZoopMeaning('')
+    setZoopInputs({
+      expression:"",
+      meaning:""
+    })
+
     setZoops((zoops) => ([newData, ...zoops]));
+    if(formRef.current){
+      (document.activeElement as HTMLInputElement).blur();
+    }
   }
 
   const handleZoopDelete: MouseEventHandler = (event: MouseEvent) => {
@@ -53,8 +64,8 @@ const ZoopZoop = () => {
   }
 
   return <Container>
-        <form onSubmit={handleSubmit} className='relative'>
-          <ZoopInput expression={zoopExpression} meaning={zoopMeaning} onExpressionChange={handleZoopChange} onMeaningChange={handleZoopMeaningChange} />
+        <form ref={formRef} onSubmit={handleSubmit} className='relative'>
+          <ZoopInput expression={zoopInputs.expression} meaning={zoopInputs.meaning} onChange={handleZoopInputChange} />
           {isError && 
           <div className='absolute bottom-0 right-3 translate-y-full md:text-sm text-xs text-red pt-1'>
             표현 입력은 필수에요!

@@ -13,12 +13,13 @@ export interface Props{
     onChange?: React.ChangeEventHandler,
     align?: keyof typeof AlignEnum,
     value?: string,
-    tails?: string
+    tails?: string,
+    name?: string,
 }
 
-const TextField:React.FC<Props> = ({ label, id, onChange, align='left', value, tails }) => {
+const TextField:React.FC<Props> = ({ label, id, onChange, align='left', value, tails, name }) => {
     return <div className={`color-black relative`}>
-        <input value={value} onSubmit={() => console.log('a')} onChange={onChange} id={id} placeholder={label} className={twMerge(`peer/input md:text-base text-sm w-full text-${align} border-solid border border-slate-400 rounded-md p-2 outline-none focus:border-slate-900 duration-200 ease-in-out`, tails)} type="text" />
+        <input value={value} name={name} onSubmit={() => console.log('a')} onChange={onChange} id={id} placeholder={label} className={twMerge(`peer/input md:text-base text-sm w-full text-${align} border-solid border border-slate-400 rounded-md p-2 outline-none focus:border-slate-900 duration-200 ease-in-out`, tails)} type="text" />
     </div>
 }
 
