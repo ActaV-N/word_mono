@@ -3,10 +3,11 @@ import { MdDriveFileMove } from 'react-icons/md';
 import { IoMdInformationCircle } from 'react-icons/io';
 import { FaEdit } from 'react-icons/fa';
 import ButtonWithIcon from '../../Atom/Button/ButtonWithIcon';
-import { TodayNyamT } from '../../../mocks/data';
+import { LangEnum, TodayNyamT } from '../../../mocks/data';
 import Modal from '../../Atom/Utils/Modal';
 import QuoteContainer from '../../Atom/Container/QuoteContainer';
 import TextField from '../../Atom/TextField';
+import Select, { SelectChangeHandler } from '../../Atom/Select';
 
 interface Props{
     nyam: TodayNyamT,
@@ -30,7 +31,23 @@ const NyamZoopDetail: React.FC<Props> = ({nyam, filled}) => {
     }
 
     const handleMove = () => {
+        
+    }
+    
+    // Handle nyam inputs change
+    const handleTextFieldChange:React.ChangeEventHandler = (event: React.ChangeEvent) => {
+        const el = event.target as HTMLInputElement;
+        setNyamInputs({
+            ...nyamInputs,
+            [el.name]:el.value
+        })
+    }
 
+    const handleSelectChange: SelectChangeHandler = ({value, name}) => {
+        setNyamInputs({
+            ...nyamInputs,
+            [name]:value
+        })
     }
 
     return <div className='text-right mt-5'>
@@ -52,19 +69,24 @@ const NyamZoopDetail: React.FC<Props> = ({nyam, filled}) => {
                 <div className='mt-5 mb-3'>
                     <TextField
                         label="뜻"
-                        value={nyam.meaning}
+                        value={nyamInputs.meaning}
                         name="meaning"
+                        onChange={handleTextFieldChange}
                     />
                 </div>
                 <div className='flex '>
                     <div className='flex-1 pr-2'>
-                        셀렉트
+                        <Select value={nyamInputs.langType} label={nyamInputs.langType ? LangEnum[nyamInputs.langType] : "냠냠 타입을 선택해주세요"} onChange={handleSelectChange} name="langType" >
+                            {Object.entries(LangEnum).map(([v, l], i) => 
+                            <Select.Item key={i} value={v} label={l} />)}
+                        </Select>
                     </div>
                     <div className='flex-1 pl-2'>
                         <TextField
                             label="줍줍 출처"
                             name="media"
-                            value={nyam.media}
+                            value={nyamInputs.media}
+                            onChange={handleTextFieldChange}
                         />
                     </div>
                 </div>

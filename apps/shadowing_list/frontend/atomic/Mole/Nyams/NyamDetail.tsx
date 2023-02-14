@@ -46,9 +46,10 @@ const NyamDetail:React.FC<Props> = ({nyam, showState}) => {
                 </div>
             </div>    
         )}
+        {nyam.media && 
         <div className='text-slate-800 text-xs mt-1'>
             표현 습득 출처: {nyam.media}
-        </div>
+        </div>}
         
         {showState === "zoop" && <NyamZoopDetail filled={filled} nyam={nyam} />}
         {showState === "nyam" && <NyamNyamDetail nyam={nyam} />}

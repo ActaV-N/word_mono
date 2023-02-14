@@ -10,9 +10,8 @@ const NyamSummary:React.FC<Props> = ({nyam}) => {
         <div>
             {nyam.expression}
         </div>
-        <div className='text-xs text-slate-700 pt-2'>
-            Category: {LangEnum[nyam.langType]}
-        </div>
+        {nyam.langType && 
+        <div className='text-xs text-slate-700 pt-2'>Category: {LangEnum[nyam.langType]}</div>}
     </>
 }
 

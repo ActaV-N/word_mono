@@ -28,7 +28,7 @@ export enum LangEnum{
 
 export type TodayNyamT = TodayDataT & TodaysNyam & {
     useCases: UseCaseT[],
-    langType: keyof typeof LangEnum,
+    langType?: keyof typeof LangEnum,
     media?: string
 }
 
@@ -101,7 +101,7 @@ export const TODAY_NYAM: TodayNyamT[] = [
         useCases:[],
         gonnaNyam: false,
         success: false,
-        langType: "en",
+        // langType: "en",
         media: "영화 Catch me if you can"
     },
     // {
