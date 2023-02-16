@@ -19,4 +19,4 @@ COPY shared/database/schema.prisma .
 RUN prisma generate
 
 EXPOSE 8000
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:dev"]

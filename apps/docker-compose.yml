@@ -10,11 +10,13 @@ services:
       dockerfile: ./shadowing_list/backend/Dockerfile
     volumes:
       - /usr/src/app/node_modules
-      - ./shadowing_list/backend/src:/usr/src/app/src
+      - "./shadowing_list/backend/:/usr/src/app/"
     env_file:
       - .env
     depends_on:
       - db
+      - prisma
+    links: 
       - prisma
     
   prisma:
