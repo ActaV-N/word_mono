@@ -8,13 +8,14 @@ RUN npm install -g prisma
 
 # Copy package.json
 COPY shadowing_list/backend/package.json ./
+COPY shadowing_list/backend/package-lock.json ./
 RUN npm install
+
+# Use schema.prisma file in shared folder
+COPY shared/database/schema.prisma ./
 
 # Cache all after package installed
 COPY shadowing_list/backend ./
-
-# Use schema.prisma file in shared folder
-COPY shared/database/schema.prisma .
 
 RUN prisma generate
 

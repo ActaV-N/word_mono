@@ -30,6 +30,7 @@
     "@nestjs/swagger": "^6.1.4",
     "@prisma/client": "^4.9.0",
     "@types/passport-jwt": "^3.0.8",
+    "argon2": "^0.30.3",
     "dotenv": "^16.0.3",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",

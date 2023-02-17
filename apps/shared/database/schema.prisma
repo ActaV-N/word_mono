@@ -8,9 +8,10 @@ generator client {
 }
 
 model User {
-    id          Int          @id @default(autoincrement())
-    email       String       @unique
-    expressions Expression[]
+    id           Int          @id @default(autoincrement())
+    email        String       @unique
+    refreshToken String?
+    expressions  Expression[]
 }
 
 model Expression {

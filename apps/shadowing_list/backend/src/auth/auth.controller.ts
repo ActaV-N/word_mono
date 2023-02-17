@@ -1,5 +1,6 @@
-import { Controller, Get, Req, Res, UseGuards, Request, Response } from "@nestjs/common";
+import { Controller, Get, Req, Res, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
+import { Request, Response } from "express";
 import { AuthService } from "./auth.service";
 import { OauthUser } from "./dto/oauth_user.dto";
 
@@ -18,9 +19,14 @@ export class AuthController{
     async googleAuthCallback(
         @Req() req: Request,
         @Res() res: Response
-    ):Promise<void>{
+    ){
         const { user } = req as Request & {user:OauthUser};
         const {accessToken, refreshToken} = await this.authService.oauthProcess(user);
+
+        res.cookie('accessToken', accessToken);
+        res.cookie('refreshToken', refreshToken);
+
+        res.redirect(process.env.DOMAIN); 
     }
 
     @Get('naver')
@@ -34,8 +40,17 @@ export class AuthController{
     async naverAuthCallback(
         @Req() req: Request,
         @Res() res: Response
-    ):Promise<void>{
+    ){
         const { user } = req as Request & {user:OauthUser};
-        this.authService.oauthProcess(user);
+        return await this.authService.oauthProcess(user);
+    }
+
+    @Get('/refresh')
+    @UseGuards(AuthGuard('refresh-jwt'))
+    async refreshTokens(@Req() req: Request){
+        const id = req.user['sub'];
+        const refreshToken = req.user['refreshToken'];
+
+        return this.authService.refreshTokens(id, refreshToken);
     }
 }
