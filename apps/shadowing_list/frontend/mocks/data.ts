@@ -7,7 +7,7 @@ export type TodayDataT = {
 
 export const TODAY_DATA: TodayDataT[] = [];
 
-type UseCaseT = {
+export type UseCaseT = {
     case: string,
     meaning: string,
     date: Date,

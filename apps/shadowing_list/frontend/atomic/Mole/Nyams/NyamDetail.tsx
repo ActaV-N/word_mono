@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TodayNyamT } from '../../../mocks/data';
-import Modal from '../../Atom/Utils/Modal';
 import { ShowEnum } from '../../Organism/Nyams/NyamNyam';
+import NyamModifyModal from './Modals/NyamModifyModal';
 import NyamNyamDetail from './NyamNyamDetail';
 import NyamZoopDetail from './NyamZoopDetail';
 
@@ -27,18 +27,22 @@ const NyamDetail:React.FC<Props> = ({nyam, showState}) => {
                 </div>
                 {nyam.useCases
                 .map((useCase, i) => (
-                <div key={i} className='mb-3'>
-                    <div className='text-xs text-slate-700'>
-                        {useCase.date.toLocaleString()}
-                    </div>
+                <div key={i} className='mb-3 flex items-start justify-between'>
                     <div>
-                        <div className='py-1'>
-                            {useCase.case}
+                        <div className='text-xs text-slate-700'>
+                            {useCase.date.toLocaleString()}
                         </div>
-                        <div className='text-slate-900'>
-                            뜻: {useCase.meaning}
+                        <div>
+                            <div className='py-1'>
+                                {useCase.case}
+                            </div>
+                            <div className='text-slate-900'>
+                                뜻: {useCase.meaning}
+                            </div>
                         </div>
                     </div>
+                    {showState === 'nyam' && 
+                    <NyamModifyModal useCase={useCase} nyam={nyam} />}
                 </div>
                 ))}
                 <div className='mt-3 text-xs text-slate-700 text-right'>
