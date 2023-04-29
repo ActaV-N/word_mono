@@ -1,0 +1,20 @@
+# Build context /apps/
+FROM node:16-alpine
+
+WORKDIR /zoop
+
+COPY package.json \
+    yarn.lock \
+    .yarnrc.yml \
+    ./
+
+COPY .yarn ./.yarn
+COPY shared ./shared
+COPY apps/zoop/backend ./apps/zoop/backend
+
+RUN yarn install
+
+ENV DATABASE_URL=${DATABASE_URL}
+
+EXPOSE 8000
+CMD npx prisma generate dev --schema ./shared/schema.prisma; yarn workspace zoop-backend start:dev

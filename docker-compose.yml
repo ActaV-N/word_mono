@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  zoop-backend:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile.zb
+    container_name: shadowing-list-backend
+    profiles:
+      - zoop
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - /usr/src/app/node_modules
+      - "./shadowing_list/backend/:/usr/src/app/"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    environment:
+      - TZ=Asia/Seoul
+      
+  db:
+    image: postgres:latest
+    container_name: postgres
+    profiles:
+      - zoop
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./shared/database/db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
